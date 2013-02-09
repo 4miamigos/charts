@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Thumbnails</title>
+        <style>
+
+            /* Demo styles */
+            html,body{background:#222;margin:0;}
+            body{border-top:4px solid #000;}
+            .content{color:#777;font:12px/1.4 "helvetica neue",arial,sans-serif;width:100%;margin:0px auto;}
+            h1{font-size:12px;font-weight:normal;color:#ddd;margin:0;}
+            p{margin:0 0 20px}
+            a {color:#22BCB9;text-decoration:none;}
+            .cred{margin-top:20px;font-size:11px;}
+
+            /* This rule is read by Galleria to define the gallery height: */
+            #galleria{height:900px}
+
+        </style>
+
+        <!-- load jQuery -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+
+
+        <!-- load Galleria -->
+        <script src="charts/charts.js"></script>
+
+    </head>
+<body>
+    <div class="content">
+        <div id="galleria">&nbsp;</div>
+    </div>
+
+    <script>
+    
+    var sInnerHTML = "";
+    for (var i=0; i<aCharts.length; i++) {
+        var sSrc = aCharts[i].src;
+        var sTitle = aCharts[i].title;
+        var sDescription = aCharts[i].description;
+                         var sHTML = '<a href="charts/' + sSrc + '" target="_blank">\n' +
+                '<img width=300 height=200 src="charts/' + sSrc + '",\n' +
+                'title="' + sTitle + '"\n' + 
+                'alt="' + sDescription + '"\n' +
+                '>' +
+                '</a>';
+        sInnerHTML += sHTML;
+    }
+    
+    var elemGalleria = document.getElementById("galleria");
+    var nHeight = document.body.clientHeight;
+    elemGalleria.setAttribute("style","display:block;height:" + nHeight + "px");
+    elemGalleria.style.height= "" + nHeight + "px";
+    elemGalleria.innerHTML = sInnerHTML;
+
+    </script>
+    </body>
+</html>
