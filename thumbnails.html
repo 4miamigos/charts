@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Thumbnails</title>
+    <style>
+
+        /* Demo styles */
+        html,body{background:#222;margin:0;}
+        body{border-top:4px solid #000;}
+        .content{color:#777;font:12px/1.4 "helvetica neue",arial,sans-serif;width:100%;margin:0px auto;}
+        h1{font-size:12px;font-weight:normal;color:#ddd;margin:0;}
+        p{margin:0 0 20px}
+        a {color:#22BCB9;text-decoration:none;}
+        .cred{margin-top:20px;font-size:11px;}
+
+        /* This rule is read by Galleria to define the gallery height: */
+        #galleria{height:900px}
+        
+        a.chart-types {
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+    </style>
+
+    <!-- load jQuery -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+
+
+    <!-- load Galleria -->
+    <script src="charts/charts.js"></script>
+    <script src="charts/lowvolnarrowspread.js"></script>
+    <script src="charts/ultrahighvol.js"></script>
+    <script src="charts/test.js"></script>
+    <script src="charts/upthrust.js"></script>
+
+    <script>
+        function getParameterByName( name )
+        {
+          name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+          var regexS = "[\\?&]"+name+"=([^&#]*)";
+          var regex = new RegExp( regexS );
+          var results = regex.exec( window.location.href );
+          if( results == null )
+            return "";
+          else
+            return decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+        
+        function onChangeChartTypes() {
+            var x=document.getElementById("chartTypes").selectedIndex;
+            var y=document.getElementById("chartTypes").options;
+            var sType = y[x].value;
+            location.href = "thumbnails.html?last=" + sType;
+        }
+    </script>
+
+</head>
+<body>
+    <div class="content">
+        <div syle="display:block">
+        <span style="margin-left:5px;color:white">Last Day: </span>
+        <select id="chartTypes" onchange="onChangeChartTypes()">
+        <option value="any">Any
+        <option value="lvns">Low Volume Narrow Spread
+        <option value="uhv">Ultra High Volume
+        <option value="test">Test
+        <option value="upthrust">Upthrust
+        </select>
+        </div>
+        <div id="galleria">&nbsp;</div>
+    </div>
+
+    <script>
+    
+    var sInnerHTML = "";
+
+	var aThumbnails = aCharts;
+    var sChartType = getParameterByName("last");
+    switch (sChartType) {
+    case "uhv": 
+        aThumbnails = aUltraHighVol;
+        $('select').val('uhv');
+        break;        
+    case "lvns": 
+        aThumbnails = aLowVolNarrowSpread;
+        $('select').val('lvns');
+        break;
+    case "test": 
+        aThumbnails = aTest;
+        $('select').val('test');    
+        break;
+    case "upthrust": 
+        aThumbnails = aUpthrust;
+        $('select').val('upthrust');    
+        break;
+    }
+
+    for (var i=0; i<aThumbnails.length; i++) {
+        var sSrc = aThumbnails[i].src;
+        var sTitle = aThumbnails[i].title;
+        var sDescription = aThumbnails[i].description;
+         var sHTML = '<a href="charts/' + sSrc + '" target="_blank">\n' +
+        '<img width=300 height=200 src="charts/' + sSrc + '",\n' +
+        'title="' + sTitle + '"\n' + 
+        'alt="' + sDescription + '"\n' +
+        '>' +
+        '</a>';
+        sInnerHTML += sHTML;
+    }
+    
+    var elemGalleria = document.getElementById("galleria");
+    var nHeight = document.body.clientHeight;
+    elemGalleria.setAttribute("style","display:block;height:" + nHeight + "px");
+    elemGalleria.style.height= "" + nHeight + "px";
+    elemGalleria.innerHTML = sInnerHTML;
+
+    </script>
+    </body>
+</html>
