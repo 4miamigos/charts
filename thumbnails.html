@@ -102,8 +102,10 @@
     for (var i=0; i<aThumbnails.length; i++) {
         var sSrc = aThumbnails[i].src;
         var sTitle = aThumbnails[i].title;
+        var aTitle = sTitle.split(".");
+        
         var sDescription = aThumbnails[i].description;
-         var sHTML = '<a href="charts/' + sSrc + '" target="_blank">\n' +
+         var sHTML = '<a href="interactive.html?s=' + aTitle[0] + '" target="_blank">\n' +
         '<img width=300 height=200 src="charts/' + sSrc + '",\n' +
         'title="' + sTitle + '"\n' + 
         'alt="' + sDescription + '"\n' +
